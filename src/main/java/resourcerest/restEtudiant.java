@@ -18,11 +18,17 @@ public class restEtudiant {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEtudiants(@QueryParam("identifiant") String identifiant) {
-        if (identifiant == null || identifiant.isEmpty()) {
-            List<Etudiant> l = optE.getAllEtudiants();
-            return Response.status(200).entity(l).build();
-        }
+    public Response getAllEtudiants() {
+        List<Etudiant> l = optE.getAllEtudiants();
+        return Response.status(200).entity(l).build();
+    }
+
+
+
+    @GET
+    @Path("{identifiant}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEtudiantByIdentifiant(@PathParam("identifiant") String identifiant) {
         Etudiant e = optE.getEtudiantByIdentifiant(identifiant);
         if (e == null) {
             return Response.status(404).build();
